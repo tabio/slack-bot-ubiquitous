@@ -1,3 +1,4 @@
+import { App, ExpressReceiver } from "@slack/bolt";
 import { APIGatewayProxyHandlerV2 } from "aws-lambda";
 
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {

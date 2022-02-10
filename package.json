@@ -32,6 +32,9 @@
   "dependencies": {
     "@serverless-stack/cli": "0.62.0",
     "@serverless-stack/resources": "0.62.0",
-    "aws-cdk-lib": "2.7.0"
+    "@slack/bolt": "^3.9.0",
+    "aws-cdk-lib": "2.7.0",
+    "typeorm": "^0.2.41",
+    "typeorm-aurora-data-api-driver": "^2.3.5"
   }
 }
