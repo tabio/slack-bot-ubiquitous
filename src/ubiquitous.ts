@@ -1,4 +1,6 @@
 import { App, ExpressReceiver } from "@slack/bolt";
+import * as awsServerlessExpress from "@vendia/serverless-express";
+
 import { APIGatewayProxyHandlerV2 } from "aws-lambda";
 
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {

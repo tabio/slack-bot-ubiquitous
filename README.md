@@ -6,6 +6,8 @@
 
 ![ハイレベルアーキテクチャ](./images/architecture.png)
 
+Boltは内部でExpressを利用している
+
 ### 事前準備
 
 - SSM に以下のパラメーターストアを登録

@@ -8,6 +8,16 @@ export default class MyStack extends sst.Stack {
   constructor(scope: sst.App, id: string, props?: sst.StackProps) {
     super(scope, id, props);
 
+    // SSM (for slack secrets)
+    const slackSigningSecret = cdk.aws_ssm.StringParameter.valueFromLookup(
+      this,
+      "slack-bot-signing-secret"
+    );
+    const slackBotToken = cdk.aws_ssm.StringParameter.valueFromLookup(
+      this,
+      "slack-bot-token"
+    );
+
     // VPC
     const vpc = new cdk.aws_ec2.Vpc(this, `vpc-${scope.name}`, {
       cidr: CIDR,
@@ -147,8 +157,8 @@ export default class MyStack extends sst.Stack {
       defaultFunctionProps: {
         architecture: cdk.aws_lambda.Architecture.ARM_64,
         environment: {
-          SLACK_SIGNING_SECRET: process.env.SLACK_SIGNING_SECRET!,
-          SLACK_BOT_TOKEN: process.env.SLACK_BOT_TOKEN!,
+          SLACK_SIGNING_SECRET: slackSigningSecret,
+          SLACK_BOT_TOKEN: slackBotToken,
           CLUSTER_ARN: serverlessCluster.clusterArn,
           SECRET_ARN: serverlessCluster.secret!.secretArn,
         },
