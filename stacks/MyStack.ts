@@ -170,8 +170,7 @@ export default class MyStack extends sst.Stack {
         role: lambdaRole,
       },
       routes: {
-        $default: {
-          // TODO: GET /ubiquitous
+        "POST /slack/events": {
           function: {
             handler: "./src/ubiquitous.handler",
             functionName: `lambdafunc-${scope.name}`,

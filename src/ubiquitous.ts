@@ -1,12 +1,15 @@
 import { App, ExpressReceiver } from "@slack/bolt";
-import * as awsServerlessExpress from "@vendia/serverless-express";
+const serverlessExpress = require("@vendia/serverless-express");
 
-import { APIGatewayProxyHandlerV2 } from "aws-lambda";
+const expressReceiver = new ExpressReceiver({
+  signingSecret: process.env.SLACK_SIGNING_SECRET!,
+  processBeforeResponse: true,
+});
 
-export const handler: APIGatewayProxyHandlerV2 = async (event) => {
-  return {
-    statusCode: 200,
-    headers: { "Content-Type": "text/plain" },
-    body: `Hello, World! Your request was received at ${event.requestContext.time}.`,
-  };
-};
+const app = new App({
+  token: process.env.SLACK_BOT_TOKEN,
+  receiver: expressReceiver,
+  processBeforeResponse: true,
+});
+
+export const handler = serverlessExpress({ app: expressReceiver.app });
