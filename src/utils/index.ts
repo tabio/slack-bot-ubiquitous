@@ -13,3 +13,12 @@ export async function postEphemeral(
     text: text,
   });
 }
+
+export const BOOK_ICONS = [
+  ":book:",
+  ":books:",
+  ":notebook:",
+  ":blue_book:",
+  ":green_book:",
+  ":closed_book:",
+];

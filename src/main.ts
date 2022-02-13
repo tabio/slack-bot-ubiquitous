@@ -1,4 +1,5 @@
 import { App, ExpressReceiver } from "@slack/bolt";
+import { researchAction } from "./actions";
 import { registerUbiquitousCommand, searchUbiquitousCommand } from "./commands";
 const serverlessExpress = require("@vendia/serverless-express");
 const expressReceiver = new ExpressReceiver({
@@ -10,6 +11,8 @@ const app = new App({
   receiver: expressReceiver,
   processBeforeResponse: true,
 });
+
+researchAction(app);
 
 registerUbiquitousCommand(app);
 searchUbiquitousCommand(app);

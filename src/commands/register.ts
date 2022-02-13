@@ -1,5 +1,5 @@
 import { App } from "@slack/bolt";
-import { registerUbiquitousModal } from "../modals";
+import { registerUbiquitousModal } from "../parts";
 import { registerUbiquitousView } from "../views";
 
 export function registerUbiquitousCommand(app: App) {
