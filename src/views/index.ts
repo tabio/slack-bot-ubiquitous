@@ -1,0 +1,1 @@
+export { registerUbiquitousView } from "./register";

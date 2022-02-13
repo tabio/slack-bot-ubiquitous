@@ -172,7 +172,7 @@ export default class MyStack extends sst.Stack {
       routes: {
         "POST /slack/events": {
           function: {
-            handler: "./src/ubiquitous.handler",
+            handler: "./src/main.handler",
             functionName: `lambdafunc-${scope.name}`,
           },
         },

@@ -1,0 +1,1 @@
+export { registerUbiquitousModal } from "./register";

@@ -6,8 +6,6 @@
 
 ![ハイレベルアーキテクチャ](./images/architecture.png)
 
-Boltは内部でExpressを利用している
-
 ### 事前準備
 
 - SSM に以下のパラメーターストアを登録
@@ -21,10 +19,10 @@ Boltは内部でExpressを利用している
   npx sst deploy
   ```
 - slack app -> Lambda の疎通確認
-  - Request URLにエンドポイントを入力しておく
+  - Request URL にエンドポイントを入力しておく
     ![interactivity-shourtcuts](./images/interactivity-shortcuts.png)
-  - Request URLにエンドポイントを入力してVerifiedになること(失敗する場合はLambdaのログを確認)
-  - Add Workspace Eventに追加しないと保存できない
+  - Request URL にエンドポイントを入力して Verified になること(失敗する場合は Lambda のログを確認)
+  - Add Workspace Event に追加しないと保存できない
     ![event-subscription](./images/event-subscription.png)
 - AWS Console -> RDS -> クエリエディタ から Table を作成
   ![クエリエディタ](./images/query-editor.png)
