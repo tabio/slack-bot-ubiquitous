@@ -178,8 +178,5 @@ export default class MyStack extends sst.Stack {
         },
       },
     });
-
-    // const lambda = apiGateway.getFunction('$default');
-    // serverlessCluster.grantDataApiAccess(lambda);
   }
 }

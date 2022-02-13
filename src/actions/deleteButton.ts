@@ -1,11 +1,10 @@
 import { App, BlockButtonAction } from "@slack/bolt";
-import { findOneUbiquitous } from "../domains/repositories/ubiquitous";
+import { deleteUbiquitous } from "../domains/repositories/ubiquitous";
 import { isConnected, DB_WATING_MESSAGE } from "../domains/connection";
-import { randomIcon } from "../utils";
 
-export function researchAction(app: App) {
+export function deleteButtonAction(app: App) {
   app.action<BlockButtonAction>(
-    /research_button_\d/,
+    "delete_button",
     async ({ ack, action, respond }) => {
       await ack();
 
@@ -19,10 +18,10 @@ export function researchAction(app: App) {
         return;
       }
 
-      const ubiquitous = await findOneUbiquitous(action.value);
+      await deleteUbiquitous(action.value);
       await respond({
         response_type: "ephemeral",
-        text: `${randomIcon()} ${ubiquitous.keyword}\n${ubiquitous.detail}`,
+        text: "削除完了",
       });
     }
   );

@@ -5,8 +5,7 @@ import {
   findOneUbiquitous,
 } from "../domains/repositories/ubiquitous";
 import { Ubiquitous } from "../domains/entities/ubiquitous";
-import { researchButton } from "../parts";
-import { BOOK_ICONS } from "../utils";
+import { foundKeywordBlock, researchButton } from "../parts";
 
 export function searchUbiquitousCommand(app: App) {
   app.command("/ubiquitous-search", async ({ body, ack, logger, respond }) => {
@@ -35,10 +34,9 @@ export function searchUbiquitousCommand(app: App) {
       // 完全一致
       const ubiquitous = await findOneUbiquitous(keyword);
       if (ubiquitous) {
-        const icon = BOOK_ICONS[Math.floor(Math.random() * BOOK_ICONS.length)];
         await respond({
           response_type: "ephemeral",
-          text: `${icon} ${ubiquitous.keyword}\n${ubiquitous.detail}`,
+          blocks: foundKeywordBlock(ubiquitous),
         });
       } else {
         // 部分一致

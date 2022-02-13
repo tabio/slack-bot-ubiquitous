@@ -14,11 +14,7 @@ export async function postEphemeral(
   });
 }
 
-export const BOOK_ICONS = [
-  ":book:",
-  ":books:",
-  ":notebook:",
-  ":blue_book:",
-  ":green_book:",
-  ":closed_book:",
-];
+export const randomIcon = () => {
+  const bookIcons = ["📓", "📕", "📗", "📙", "📔", "📖", "📚"];
+  return bookIcons[Math.floor(Math.random() * bookIcons.length)];
+};
