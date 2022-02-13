@@ -6,6 +6,15 @@ import {
   findOneUbiquitous,
 } from "../domains/repositories/ubiquitous";
 
+const BOOK_ICONS = [
+  ":book:",
+  ":books:",
+  ":notebook:",
+  ":blue_book:",
+  ":green_book:",
+  ":closed_book:",
+];
+
 export function searchUbiquitousCommand(app: App) {
   app.command("/ubiquitous-search", async ({ client, body, ack, logger }) => {
     await ack();
@@ -36,7 +45,8 @@ export function searchUbiquitousCommand(app: App) {
       let message = "";
       const ubiquitous = await findOneUbiquitous(keyword);
       if (ubiquitous) {
-        message = `【${ubiquitous.keyword}】\n\n${ubiquitous.detail}`;
+        const icon = BOOK_ICONS[Math.floor(Math.random() * BOOK_ICONS.length)];
+        message = `${icon} ${ubiquitous.keyword}\n${ubiquitous.detail}`;
       } else {
         // 部分一致
         const ubiquitouses = await findLikeUbiquitous(keyword);
@@ -50,7 +60,7 @@ export function searchUbiquitousCommand(app: App) {
         client,
         channel_id,
         user_id,
-        message || `${keyword}が見つかりませんでした :innocent:`
+        message || `【${keyword}】が見つかりませんでした :innocent:`
       );
     } catch (err) {
       logger.error(err);
