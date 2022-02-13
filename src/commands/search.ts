@@ -1,5 +1,10 @@
 import { App } from "@slack/bolt";
 import { postEphemeral } from "../utils";
+import { isConnected, DB_WATING_MESSAGE } from "../domains/connection";
+import {
+  findLikeUbiquitous,
+  findOneUbiquitous,
+} from "../domains/repositories/ubiquitous";
 
 export function searchUbiquitousCommand(app: App) {
   app.command("/ubiquitous-search", async ({ client, body, ack, logger }) => {
@@ -20,8 +25,33 @@ export function searchUbiquitousCommand(app: App) {
     }
 
     try {
-      let message = `${keyword}が見つかりませんでした :innocent:`;
-      await postEphemeral(client, channel_id, user_id, message);
+      // DB check
+      const enableDb = await isConnected();
+      if (!enableDb) {
+        await postEphemeral(client, channel_id, user_id, DB_WATING_MESSAGE);
+        return;
+      }
+
+      // 完全一致
+      let message = "";
+      const ubiquitous = await findOneUbiquitous(keyword);
+      if (ubiquitous) {
+        message = `【${ubiquitous.keyword}】\n\n${ubiquitous.detail}`;
+      } else {
+        // 部分一致
+        const ubiquitouses = await findLikeUbiquitous(keyword);
+        for (const ubiquitous of ubiquitouses) {
+          // TODO: ボタンにする
+          message += `【${ubiquitous.keyword}】\n\n${ubiquitous.detail}\n\n`;
+        }
+      }
+
+      await postEphemeral(
+        client,
+        channel_id,
+        user_id,
+        message || `${keyword}が見つかりませんでした :innocent:`
+      );
     } catch (err) {
       logger.error(err);
     }
