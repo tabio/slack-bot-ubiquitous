@@ -2,9 +2,10 @@ import { App, ExpressReceiver } from "@slack/bolt";
 import {
   deleteButtonAction,
   editButtonAction,
+  registerButtonAction,
   researchAction,
 } from "./actions";
-import { registerUbiquitousCommand, searchUbiquitousCommand } from "./commands";
+import { searchUbiquitousCommand } from "./commands";
 const serverlessExpress = require("@vendia/serverless-express");
 const expressReceiver = new ExpressReceiver({
   signingSecret: process.env.SLACK_SIGNING_SECRET!,
@@ -17,10 +18,10 @@ const app = new App({
 });
 
 researchAction(app);
+registerButtonAction(app);
 editButtonAction(app);
 deleteButtonAction(app);
 
-registerUbiquitousCommand(app);
 searchUbiquitousCommand(app);
 
 export const handler = serverlessExpress({ app: expressReceiver.app });

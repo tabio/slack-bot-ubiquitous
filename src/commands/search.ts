@@ -5,10 +5,10 @@ import {
   findOneUbiquitous,
 } from "../domains/repositories/ubiquitous";
 import { Ubiquitous } from "../domains/entities/ubiquitous";
-import { foundKeywordBlock, researchButton } from "../parts";
+import { foundKeywordBlock, researchButton, registerButton } from "../parts";
 
 export function searchUbiquitousCommand(app: App) {
-  app.command("/ubiquitous-search", async ({ body, ack, logger, respond }) => {
+  app.command("/ubiquitous", async ({ body, ack, logger, respond }) => {
     await ack();
 
     const keyword = body.text;
@@ -52,7 +52,7 @@ export function searchUbiquitousCommand(app: App) {
           // 存在しない
           await respond({
             response_type: "ephemeral",
-            text: `【${keyword}】が見つかりませんでした :innocent:`,
+            blocks: registerButton(keyword),
           });
         }
       }
