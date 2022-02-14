@@ -36,7 +36,9 @@ export function registerUbiquitousView(app: App) {
         const result = await client.chat.postEphemeral({
           channel: channel_id,
           user: user_id,
-          text: `${keyword}の登録に${isRegistered ? "成功" : `失敗\n${error}`}`,
+          text: `${keyword} の登録に${
+            isRegistered ? "成功 :ok:" : `失敗 :skull:\n${error}`
+          }`,
         });
 
         if (!result.ok) {

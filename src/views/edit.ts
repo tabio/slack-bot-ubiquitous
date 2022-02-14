@@ -36,7 +36,9 @@ export function editUbiquitousView(app: App) {
         const result = await client.chat.postEphemeral({
           channel: channel_id,
           user: user_id,
-          text: `${keyword}の更新に${isUpdated ? "成功" : `失敗\n${error}`}`,
+          text: `${keyword} の更新に${
+            isUpdated ? "成功 :ok:" : `失敗 :skull:\n${error}`
+          }`,
         });
 
         if (!result.ok) {
