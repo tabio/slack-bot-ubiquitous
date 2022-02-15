@@ -4,6 +4,12 @@ import { Ubiquitous } from "../entities/ubiquitous";
 const MAX_KEYWORD_LENTGH = 20;
 const MAX_DETAIL_LENTGH = 140;
 
+// Aurora Serverless 起動用に利用
+export const countUbiquitous = async (): Promise<any> => {
+  const ubiquitousRepository = getRepository(Ubiquitous);
+  return await ubiquitousRepository.count();
+};
+
 // 更新
 export const updateUbiquitous = async (
   keyword?: string,
