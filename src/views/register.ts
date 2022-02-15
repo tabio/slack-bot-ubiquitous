@@ -19,8 +19,7 @@ export function registerUbiquitousView(app: App) {
 
       try {
         // DB check
-        const enableDb = await isConnected();
-        if (!enableDb) {
+        if (!isConnected()) {
           await postEphemeral(client, channel_id, user_id, DB_WATING_MESSAGE);
           return;
         }

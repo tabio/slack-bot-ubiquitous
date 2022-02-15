@@ -13,20 +13,10 @@ export async function makeConnection() {
     resourceArn: process.env.CLUSTER_ARN!,
     region: "ap-northeast-1",
     entities: [Ubiquitous],
+    maxQueryExecutionTime: 500,
   });
 }
 
-export async function isConnected(): Promise<boolean> {
-  if (connection && connection.isConnected) {
-    return true;
-  }
-  await makeConnection();
-
-  // クエリを流さないと AuroraServerless は起動しない
-  try {
-    await countUbiquitous();
-  } catch (err) {
-    console.log("DB接続に失敗しました");
-  }
-  return false;
+export function isConnected(): boolean {
+  return connection && connection.isConnected;
 }

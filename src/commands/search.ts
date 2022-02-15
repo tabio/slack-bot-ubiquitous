@@ -22,8 +22,7 @@ export function searchUbiquitousCommand(app: App) {
 
     try {
       // DB check
-      const enableDb = await isConnected();
-      if (!enableDb) {
+      if (!isConnected()) {
         await respond({
           response_type: "ephemeral",
           text: DB_WATING_MESSAGE,
