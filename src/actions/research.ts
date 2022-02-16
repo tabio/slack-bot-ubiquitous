@@ -1,5 +1,8 @@
 import { App, BlockButtonAction } from "@slack/bolt";
-import { findOneUbiquitous } from "../domains/repositories/ubiquitous";
+import {
+  incrementHitUbiquitous,
+  findOneUbiquitous,
+} from "../domains/repositories/ubiquitous";
 import { isConnected, DB_WATING_MESSAGE } from "../domains/connection";
 import { foundKeywordBlock } from "../parts";
 
@@ -19,6 +22,10 @@ export function researchAction(app: App) {
       }
 
       const ubiquitous = await findOneUbiquitous(action.value);
+
+      // 検索回数の更新
+      await incrementHitUbiquitous(ubiquitous);
+
       await respond({
         response_type: "ephemeral",
         blocks: foundKeywordBlock(ubiquitous),
