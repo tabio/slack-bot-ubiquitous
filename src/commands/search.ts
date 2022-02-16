@@ -3,6 +3,7 @@ import { isConnected, DB_WATING_MESSAGE } from "../domains/connection";
 import {
   findLikeUbiquitous,
   findOneUbiquitous,
+  incrementHitUbiquitous,
 } from "../domains/repositories/ubiquitous";
 import { Ubiquitous } from "../domains/entities/ubiquitous";
 import { foundKeywordBlock, researchButton, registerButton } from "../parts";
@@ -33,6 +34,9 @@ export function searchUbiquitousCommand(app: App) {
       // 完全一致
       const ubiquitous = await findOneUbiquitous(keyword);
       if (ubiquitous) {
+        // 検索回数の更新
+        await incrementHitUbiquitous(ubiquitous);
+
         await respond({
           response_type: "ephemeral",
           blocks: foundKeywordBlock(ubiquitous),

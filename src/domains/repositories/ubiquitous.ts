@@ -10,6 +10,13 @@ export const countUbiquitous = async (): Promise<any> => {
   return await ubiquitousRepository.count();
 };
 
+// 検索回数の保存
+export const incrementHitUbiquitous = async (ubiquitous: Ubiquitous) => {
+  const ubiquitousRepository = getRepository(Ubiquitous);
+  ubiquitous.hit = ubiquitous.hit + 1;
+  return await ubiquitousRepository.save(ubiquitous);
+};
+
 // 更新
 export const updateUbiquitous = async (
   keyword?: string,

@@ -20,7 +20,7 @@ export function deleteButtonAction(app: App) {
       await deleteUbiquitous(action.value);
       await respond({
         response_type: "ephemeral",
-        text: "削除完了",
+        text: "削除完了 :broom:",
       });
     }
   );

@@ -11,4 +11,7 @@ export class Ubiquitous {
 
   @Column("text", { comment: "詳細", nullable: false })
   detail: string;
+
+  @Column("int", { comment: "検索回数" })
+  hit: number;
 }

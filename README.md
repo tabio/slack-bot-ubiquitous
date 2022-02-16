@@ -31,7 +31,8 @@
     id INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     keyword TEXT NOT NULL,
     FULLTEXT (keyword) WITH PARSER ngram,
-    detail TEXT NOT NULL
+    detail TEXT NOT NULL,
+    hit INT NOT NULL DEFAULT 0
   ) DEFAULT CHARSET = utf8 ENGINE=InnoDB;
   ```
 
