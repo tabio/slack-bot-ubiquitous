@@ -1,7 +1,7 @@
 import { App, BlockButtonAction } from "@slack/bolt";
 import { findOneUbiquitous } from "../domains/repositories/ubiquitous";
 import { isConnected, DB_WATING_MESSAGE } from "../domains/connection";
-import { randomIcon } from "../utils";
+import { foundKeywordBlock } from "../parts";
 
 export function researchAction(app: App) {
   app.action<BlockButtonAction>(
@@ -21,7 +21,7 @@ export function researchAction(app: App) {
       const ubiquitous = await findOneUbiquitous(action.value);
       await respond({
         response_type: "ephemeral",
-        text: `${randomIcon()} ${ubiquitous.keyword}\n${ubiquitous.detail}`,
+        blocks: foundKeywordBlock(ubiquitous),
       });
     }
   );
